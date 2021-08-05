@@ -4,7 +4,7 @@
 
 
 - Goal: 
--- To provide a simple list of free games for users to choose from.
+  - To provide a simple list of free games for users to choose from.
 
 #### A Chained User (not logged in) can: View top 20 results of any search preformed
 
