@@ -9,5 +9,5 @@
 #### A Chained User (not logged in) can:
  - View top 20 results of any search preformed
 
-## An Unchained User (logged in) can:
+#### An Unchained User (logged in) can:
  - Save games to their list to view later
