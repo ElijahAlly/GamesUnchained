@@ -6,6 +6,8 @@
 - Goal: 
   - To provide a simple list of free games for users to choose from.
 
-#### A Chained User (not logged in) can: View top 20 results of any search preformed
+- A Chained User (not logged in) can: 
+  - View top 20 results of any search preformed
 
-#### An Unchained User (logged in) can: Save games to their list to view later
+- An Unchained User (logged in) can: 
+  - Save games to their list to view later
