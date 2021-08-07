@@ -19,7 +19,8 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
 			<div className='nav-footer'>
 				<div className='app-header'>
 					<h1 className='app-name'>Games Unchained</h1>
-					<h2 className='app-description'>Explore 100% FREE games!</h2>
+					<h2 className='app-description'>Explore 100% FREE games!  |</h2>
+					<h2 className='app-src'>Powered by <a href="https://www.freetogame.com" target='_blank'>FreeToGame</a></h2>
 				</div>
 				{showGame && <h3 className='close' onClick={() => dispatch(hideGame())}>Close</h3>}
 			</div>

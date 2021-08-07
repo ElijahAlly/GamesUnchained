@@ -18,7 +18,7 @@ const _initialState: FiltersState = {
 	sortBy: [],
 };
 
-export default (state: FiltersState = _initialState, action: ActionPayload) => {
+export default (state = _initialState, action: ActionPayload) => {
 	Object.freeze(state);
 	const newState: FiltersState = Object.assign({}, state);
 

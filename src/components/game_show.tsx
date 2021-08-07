@@ -1,7 +1,8 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { expandImg } from '../actions/image_actions';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { RAPID_API_KEY } from '../util/keys/Rapid_API';
+import ExpandedImg from './expanded_img';
 
 export interface GameShowProps {
 	gameId: string;
@@ -67,6 +68,8 @@ const _initialGameState: GameProps = {
 
 const GameShow: React.FunctionComponent<GameShowProps> = ({ gameId }) => {
 	const [game, setGame] = useState(_initialGameState);
+	const dispatch = useAppDispatch();
+	const imgSrc: any = useAppSelector((state) => `${state.entities.images.img}`);
 
 	useEffect(() => {
 		const getGame = async () => {
@@ -116,11 +119,14 @@ const GameShow: React.FunctionComponent<GameShowProps> = ({ gameId }) => {
 
 	return (
 		<section className='game-show'>
+			{imgSrc && imgSrc.length > 0 ? (
+				<ExpandedImg src={imgSrc}/>
+			) : null}
 			<h3 className='title'>{game.title}</h3>
 			<div className='images'>
-				<img className='main-img' src={game.thumbnail} draggable={false} />
+				<img className='main-img' src={game.thumbnail} draggable={false} onClick={() => dispatch(expandImg(game.thumbnail))} />
 				{game.screenshots.map((img) => (
-					<img className='main-img' src={`${img.image}`} key={img.id} draggable={false} />
+					<img className='main-img' src={`${img.image}`} key={img.id} draggable={false} onClick={() => dispatch(expandImg(img.image))} />
 				))}
 			</div>
 			<ul className='description-headers'>
