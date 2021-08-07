@@ -14,9 +14,15 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
 
 	return (
 		<section className={`navbar ${showGame ? 'show-game-background' : ''}`}>
+			<h3 className={`music ${showGame ? 'show-music' : ''}`}></h3>
 			{showGame && <GameShow gameId={gameId} />}
-			<h1 className='app-name'>Games Unchained</h1>
-			{showGame && <h3 onClick={() => dispatch(hideGame())}>Close</h3>}
+			<div className='nav-footer'>
+				<div className='app-header'>
+					<h1 className='app-name'>Games Unchained</h1>
+					<h2 className='app-description'>Explore 100% FREE games!</h2>
+				</div>
+				{showGame && <h3 className='close' onClick={() => dispatch(hideGame())}>Close</h3>}
+			</div>
 		</section>
 	);
 };
