@@ -241,24 +241,24 @@ body,
 	z-index: 3;
 }
 
-.music {
-	position: fixed;
-	top: 0;
-	right: 50px;
-	margin: 0;
-	height: 40px;
-	width: 450px;
-	padding: 10px;
-	background-color: $powderBlueLight;
-	border-bottom-left-radius: $border-radius;
-	border-bottom-right-radius: $border-radius;
-	transition: 0.72s;
-}
+// .music {
+// 	position: fixed;
+// 	top: 0;
+// 	right: 50px;
+// 	margin: 0;
+// 	height: 40px;
+// 	width: 450px;
+// 	padding: 10px;
+// 	background-color: $powderBlueLight;
+// 	border-bottom-left-radius: $border-radius;
+// 	border-bottom-right-radius: $border-radius;
+// 	transition: 0.72s;
+// }
 
-.show-music {
-	background-color: $charcoal;
-	transition: 0.72s;
-}
+// .show-music {
+// 	background-color: $charcoal;
+// 	transition: 0.72s;
+// }
 
 .app-header {
 	display: flex;
