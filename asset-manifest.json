@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/GamesUnchained/static/css/main.ba3e9f5a.chunk.css",
-    "main.js": "/GamesUnchained/static/js/main.781ad493.chunk.js",
-    "main.js.map": "/GamesUnchained/static/js/main.781ad493.chunk.js.map",
+    "main.css": "/GamesUnchained/static/css/main.660bf1da.chunk.css",
+    "main.js": "/GamesUnchained/static/js/main.22f826ca.chunk.js",
+    "main.js.map": "/GamesUnchained/static/js/main.22f826ca.chunk.js.map",
     "runtime-main.js": "/GamesUnchained/static/js/runtime-main.19b563da.js",
     "runtime-main.js.map": "/GamesUnchained/static/js/runtime-main.19b563da.js.map",
     "static/js/2.8cca2c7d.chunk.js": "/GamesUnchained/static/js/2.8cca2c7d.chunk.js",
     "static/js/2.8cca2c7d.chunk.js.map": "/GamesUnchained/static/js/2.8cca2c7d.chunk.js.map",
     "index.html": "/GamesUnchained/index.html",
-    "static/css/main.ba3e9f5a.chunk.css.map": "/GamesUnchained/static/css/main.ba3e9f5a.chunk.css.map",
+    "static/css/main.660bf1da.chunk.css.map": "/GamesUnchained/static/css/main.660bf1da.chunk.css.map",
     "static/js/2.8cca2c7d.chunk.js.LICENSE.txt": "/GamesUnchained/static/js/2.8cca2c7d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.19b563da.js",
     "static/js/2.8cca2c7d.chunk.js",
-    "static/css/main.ba3e9f5a.chunk.css",
-    "static/js/main.781ad493.chunk.js"
+    "static/css/main.660bf1da.chunk.css",
+    "static/js/main.22f826ca.chunk.js"
   ]
 }
