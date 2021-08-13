@@ -98,6 +98,7 @@ const GameShow: React.FunctionComponent<GameShowProps> = ({ gameId }) => {
 
 	const getTabInfo = (tab: string) => {
 		const descriptionEle = document.getElementsByClassName('description')[0];
+		const secondEle = document.getElementById('second-ele');
 
 		switch (tab) {
 			case 'description':
@@ -105,11 +106,12 @@ const GameShow: React.FunctionComponent<GameShowProps> = ({ gameId }) => {
 				setHighlight('description');
 				return;
 			case 'game-info':
-				descriptionEle.innerHTML = game.short_description;
+				descriptionEle.innerHTML = 'Short Descrption: ' + game.short_description;
+				if (secondEle) secondEle.innerHTML = 'Link To Game: ' + game.game_url;
 				setHighlight('game-info');
 				return;
 			case 'stats':
-				descriptionEle.innerHTML = game.developer;
+				descriptionEle.innerHTML = 'Developer: ' + game.developer;
 				setHighlight('stats');
 				return;
 			default:
@@ -117,12 +119,17 @@ const GameShow: React.FunctionComponent<GameShowProps> = ({ gameId }) => {
 		}
 	};
 
+	const openInNewTab = (url: string): void => {
+		const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+		if (newWindow) newWindow.opener = null
+	}
+
 	return (
 		<section className='game-show'>
 			{imgSrc && imgSrc.length > 0 ? (
 				<ExpandedImg src={imgSrc}/>
 			) : null}
-			<h3 className='title'>{game.title}</h3>
+			<h3 className='title' onClick={() => openInNewTab(game.game_url)}>{game.title}</h3>
 			<div className='images'>
 				<img className='main-img' src={game.thumbnail} draggable={false} onClick={() => dispatch(expandImg(game.thumbnail))} />
 				{game.screenshots.map((img) => (

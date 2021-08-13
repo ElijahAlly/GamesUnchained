@@ -77,6 +77,15 @@ body,
 			font-size: 40px;
 			user-select: text;
 			margin-top: 0;
+			text-decoration: 3px $burntSienna solid underline;
+			text-underline-offset: 4px;
+			transition: 0.3s;
+			cursor: pointer;
+
+			&:hover {
+				color: $sandyBrown;
+				text-decoration-color: $sandyBrown;
+			}
 		}
 
 		.description {
