@@ -64,17 +64,19 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_STAGING }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: my-app
+          ECR_REPOSITORY: games-unchained
           IMAGE_TAG: ${{ github.sha }}
           RELEASE_IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.RELEASE_REVISION }}
+          MY_POD: eks-sample-linux-deployment-5dfb77566d-4r76v
+          KUBE_NAMESPACE: default
         with:
-          args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-#           args: set image deployment/my-pod app=${{ env.RELEASE_IMAGE }} --record -n $KUBE_NAMESPACE
+#           args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          args: set image deployment/$MY_POD app=${{ env.RELEASE_IMAGE }} --record -n $KUBE_NAMESPACE
           
       - name: Verify Kubernetes deployment                               
         uses: kodermax/kubectl-aws-eks@master                            
         with:                                                            
-          args: rollout status deploy my-pod -n default
+          args: rollout status deploy eks-sample-linux-deployment-5dfb77566d-4r76v -n default
           
       - name: EKS on Fargate
         # You may pin to the exact commit or the version.
