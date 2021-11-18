@@ -59,7 +59,7 @@ jobs:
         with:
 #           args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 #           args: set image deployment/games-unchained-cluster-0 nginx=${{ env.RELEASE_IMAGE }}
-          args: set image deployment/nginx app=games-unchained
+          args: set image deployment/nginx nginx=games-unchained
           
       - name: EKS on Fargate
         # You may pin to the exact commit or the version.
