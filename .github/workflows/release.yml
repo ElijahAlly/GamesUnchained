@@ -18,9 +18,8 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
   KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-  KUBE_NAMESPACE: production
+  KUBE_NAMESPACE: default
   EKS_REPOSITORY: games-unchained
-#   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -48,9 +47,18 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
           
-      - name: Login to Amazon Eks         
-        id: login-eks                        
-        uses: aws-actions/amazon-eks-login@v1  
+      - name: Login to Amazon ECR         
+        id: login-ecr                        
+        uses: aws-actions/amazon-ecr-login@v1  
+        
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: reponame
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           
       - name: Set up Docker Buildx                             
         id: buildx                                             
@@ -82,7 +90,6 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
           
-          
       - name: Deploy to Kubernetes cluster                                                                            
         uses: kodermax/kubectl-aws-eks@master                                                                         
         env:                                                                                                          
@@ -95,17 +102,6 @@ jobs:
         with:                                                            
           args: rollout status deploy my-pod -n $KUBE_NAMESPACE 
           
-#       # Runs a single command using the runners shell
-#       - name: Run a one-line script
-#         run: echo Hello, world!
-
-#       # Runs a set of commands using the runners shell
-#       - name: Run a multi-line script
-#         run: |
-#           echo Add other actions to build,
-#           echo test, and deploy your project.
-
-
       - name: EKS on Fargate
         # You may pin to the exact commit or the version.
         # uses: aws-actions/amazon-eks-fargate@fa91b1ce6e342eb17a1d57df976506d02f074640
