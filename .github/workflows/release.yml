@@ -55,10 +55,12 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: games-unchained
           IMAGE_TAG: ${{ github.sha }}
+          PROJECT_ID: 
           RELEASE_IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.RELEASE_REVISION }}
         with:
 #           args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          args: set image deployment/games-unchained-cluster-0 nginx=${{ env.RELEASE_IMAGE }}
+#           args: set image deployment/games-unchained-cluster-0 nginx=${{ env.RELEASE_IMAGE }}
+          args: set image deployment/games-unchained-cluster-0 app=games-unchained eks.amazonaws.com/fargate-profile=my-fargate-profile pod-template-hash=5dfb77566d 
           
       - name: EKS on Fargate
         # You may pin to the exact commit or the version.
