@@ -7,10 +7,10 @@ name: Release
 on:
   pull_request:
     paths:
-    - app/**
+    - GamesUnchained/**
   push:
     paths:
-    - app/**
+    - GamesUnchained/**
     branches:         
     - main  
 
@@ -57,7 +57,6 @@ jobs:
       
       - name: Build and tag the image
         run: |
-          pwd
           # Build and tag the image
           docker image build \
             -t $CONTAINER_IMAGE \
