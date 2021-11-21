@@ -5,9 +5,11 @@ name: Release
 # Controls when the workflow will run
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
   pull_request:
-    branches: [ main ]
+    branches: 
+       - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,13 +21,14 @@ env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
   KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
   KUBE_NAMESPACE: default
+  echo: "${{ github.event.push_request }}"
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
     # This workflow contains a single job called "build"
   build:
     runs-on: ubuntu-latest
-    steps:
+    steps:        
       - name: Cancel Previous Runs               
         uses: styfle/cancel-workflow-action@0.4.1
         with:                                    
