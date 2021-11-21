@@ -60,7 +60,7 @@ jobs:
           # Build and tag the image
           docker build \
             pwd \ 
-            -f ./github/workflows/build.yml
+            -f ./github/workflows/build.yml \
             pwd \ 
             -t $CONTAINER_IMAGE \
             -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE .
