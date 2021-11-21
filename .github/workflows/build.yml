@@ -39,7 +39,7 @@ jobs:
           
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout 
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
         with:                                           
           ref: ${{ github.event.pull_request.head.sha }}
           
@@ -57,8 +57,9 @@ jobs:
       
       - name: Build and tag the image
         run: |
+          cd GamesUnchained
           # Build and tag the image
-          docker build \
+          docker image build \
             -t $CONTAINER_IMAGE \
             -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./app
 
