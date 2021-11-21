@@ -4,12 +4,14 @@ name: Release
 
 # Controls when the workflow will run
 on:
-  push:
-    branches: 
-      - main
   pull_request:
-    branches: 
-       - main
+    paths:
+    - app/**
+  push:
+    paths:
+    - app/**
+    branches:         
+    - main  
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -57,7 +59,7 @@ jobs:
           # Build and tag the image
           docker build \
             -t $CONTAINER_IMAGE \
-            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE .
+            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./app
 
       # Add additional steps here like scanning of image
 
