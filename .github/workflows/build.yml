@@ -57,11 +57,11 @@ jobs:
       
       - name: Build and tag the image
         run: |
-          pwd GamesUnchained
+          pwd
           # Build and tag the image
           docker image build \
             -t $CONTAINER_IMAGE \
-            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./app
+            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./GamesUnchained
 
       # Add additional steps here like scanning of image
 
