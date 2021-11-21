@@ -7,10 +7,10 @@ name: Release
 on:
   pull_request:
     paths:
-    - GamesUnchained/**
+    - app/**
   push:
     paths:
-    - GamesUnchained/**
+    - app/**
     branches:         
     - main  
 
@@ -58,9 +58,10 @@ jobs:
       - name: Build and tag the image
         run: |
           # Build and tag the image
-          docker image build \
+          docker build \
+            -v ${PWD}:/app \
             -t $CONTAINER_IMAGE \
-            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./GamesUnchained
+            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./app
 
       # Add additional steps here like scanning of image
 
