@@ -57,7 +57,7 @@ jobs:
           
       - name: Build and tag the image
         run: |
-          docker build . \
+          docker build ./github/workflows \
             -t $CONTAINER_IMAGE \
             -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
 
