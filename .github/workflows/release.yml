@@ -21,7 +21,7 @@ env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
   KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
   KUBE_NAMESPACE: default
-  echo: "${{ github.event.push_request }}"
+  TEST: ${{ github.event }}
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
