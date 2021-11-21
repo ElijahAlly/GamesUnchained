@@ -15,18 +15,18 @@ on:
   workflow_dispatch:
 
 env:
-  RELEASE_REVISION: "pr-${{ github.event.push_request.number }}-${{ github.event.push_request.head.sha }}"
+  AWS_DEFAULT_REGION: us-east-1
+  AWS_DEFAULT_OUTPUT: json
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-  KUBE_NAMESPACE: default
-  VAR: ${{ github.event.push_request }}
+  CONTAINER_IMAGE: example-eks:${{ github.sha }}
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
     # This workflow contains a single job called "build"
-  build:
+  build-and-push:
+    name: Build and deploy
     runs-on: ubuntu-latest
     steps:        
       - name: Cancel Previous Runs               
@@ -36,16 +36,17 @@ jobs:
           
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout 
-        uses: actions/checkout@v2
+        uses: actions/checkout@main
         with:                                           
           ref: ${{ github.event.pull_request.head.sha }}
           
       - name: Configure AWS credentials                          
         uses: aws-actions/configure-aws-credentials@v1           
-        with:                                                    
+        with:                          
+          aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}        
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-default-region: ${{ env.AWS_DEFAULT_REGION }}
           
       - name: Login to Amazon ECR         
         id: login-ecr                        
@@ -54,11 +55,9 @@ jobs:
       - name: deploy to cluster
         uses: kodermax/kubectl-aws-eks@master
         env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: games-unchained
           IMAGE_TAG: ${{ github.sha }}
-          RELEASE_IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.RELEASE_REVISION }}
         with:
 #           args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 #           args: set image deployment/games-unchained-cluster-0 nginx=${{ env.RELEASE_IMAGE }}
