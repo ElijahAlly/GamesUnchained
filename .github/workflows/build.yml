@@ -40,25 +40,24 @@ jobs:
         with:                                           
           ref: ${{ github.event.pull_request.head.sha }}
           
-      - name: Configure AWS credentials                          
-        uses: aws-actions/configure-aws-credentials@v1           
-        with:                          
-          aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}        
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-          
-      - name: Login to Amazon ECR         
-        id: login-ecr                        
-        uses: aws-actions/amazon-ecr-login@v1  
-        
-      - name: deploy to cluster
-        uses: kodermax/kubectl-aws-eks@master
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: games-unchained
-          IMAGE_TAG: ${{ github.sha }}
-        with:
-#           args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-#           args: set image deployment/games-unchained-cluster-0 nginx=${{ env.RELEASE_IMAGE }}
-          args: set image deployment/nginx nginx=games-unchained
+      - name: Setup ECR
+        run: |
+          # Login to AWS ECR
+          $( aws ecr get-login --no-include-email )
+      - name: Build and tag the image
+        run: |
+          # Build and tag the image
+          docker build \
+            -t $CONTAINER_IMAGE \
+            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./app
+
+      # Add additional steps here like scanning of image
+
+      # Only push to registry on master
+      - name: Push
+        if: github.ref == 'refs/heads/master'
+        run: |
+          # Push image to AWS ECR
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
+
+
