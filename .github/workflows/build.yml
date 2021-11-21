@@ -7,10 +7,10 @@ name: Release
 on:
   pull_request:
     paths:
-    - ./app/**
+    - ./**
   push:
     paths:
-    - ./app/**
+    - ./**
     branches:         
     - main  
 
@@ -55,12 +55,16 @@ jobs:
         id: login-ecr                        
         uses: aws-actions/amazon-ecr-login@v1  
       
+      - name: cd to root
+        run: |
+          cd ../../
+          
       - name: Build and tag the image
         run: |
           # Build and tag the image
           docker build \
             -t $CONTAINER_IMAGE \
-            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE https://github.com/ElijahAlly/GamesUnchained
+            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE .
 
       # Add additional steps here like scanning of image
 
