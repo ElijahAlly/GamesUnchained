@@ -7,10 +7,10 @@ name: Release
 on:
   pull_request:
     paths:
-    - ./**
+    - ./app/**
   push:
     paths:
-    - ./**
+    - ./app/**
     branches:         
     - main  
 
@@ -57,9 +57,9 @@ jobs:
           
       - name: Build and tag the image
         run: |
-          docker build ./github/workflows \
+          docker build \
             -t $CONTAINER_IMAGE \
-            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
+            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE .
 
       # Add additional steps here like scanning of image
 
