@@ -69,7 +69,6 @@ jobs:
       # Only push to registry on main
       - name: Push
         if: github.ref == 'refs/heads/main'
-      # Push image to AWS ECR
         run: |
           docker push public.ecr.aws/c3f7y0i1/games-unchained:${{ github.sha }}
         # docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
