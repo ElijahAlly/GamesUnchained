@@ -1,5 +1,11 @@
 services:
-  webapp:
-    build: .
+  sample:
+    container_name: sample
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
     ports:
       - "5000:5000"
