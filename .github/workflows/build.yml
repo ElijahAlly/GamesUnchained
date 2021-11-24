@@ -58,19 +58,21 @@ jobs:
           
       - name: Build image
         run: |
-          docker build \
-            -t $CONTAINER_IMAGE \
-            -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE .
+          docker build -t games-unchained .
+        # docker build \
+          # -t $CONTAINER_IMAGE \
+          # -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE .
 
       # Add additional steps here like scanning of image
       - name: Tag image
         run: |
-          docker tag games-unchained:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/games-unchained:latest
+          docker tag games-unchained:latest public.ecr.aws/c3f7y0i1/games-unchained:latest
 
       # Only push to registry on main
       - name: Push
-        if: github.ref == 'refs/heads/main'
+        # if: github.ref == 'refs/heads/main'
         run: |
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/games-unchained:latest
+          docker push public.ecr.aws/c3f7y0i1/games-unchained:latest
+        # docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/games-unchained:latest
 
 
